@@ -4,19 +4,56 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, Wand2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Header.module.css";
 
 export default function Header() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [hash, setHash] = useState("");
+
+  useEffect(() => {
+    const updateHash = () => {
+      setHash(window.location.hash);
+    };
+
+    updateHash();
+
+    window.addEventListener("hashchange", updateHash);
+    return () => window.removeEventListener("hashchange", updateHash);
+  }, []);
 
   const isActive = (href: string) => {
-    if (href === "/") return pathname === "/";
+    if (href === "/") {
+      return pathname === "/" && hash !== "#como-funciona";
+    }
+
     return pathname.startsWith(href);
   };
 
+  const isComoFuncionaActive = () => {
+    return pathname === "/" && hash === "#como-funciona";
+  };
+
   const closeMenu = () => setMenuOpen(false);
+
+  const handleHomeClick = () => {
+    setHash("");
+    closeMenu();
+  };
+
+  const handleComoFuncionaClick = () => {
+    setHash("#como-funciona");
+    closeMenu();
+  };
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <>
@@ -27,7 +64,7 @@ export default function Header() {
         transition={{ duration: 0.7, ease: "easeOut" }}
       >
         <div className={styles.container}>
-          <Link href="/" className={styles.logoArea} onClick={closeMenu}>
+          <Link href="/" className={styles.logoArea} onClick={handleHomeClick}>
             <motion.div
               className={styles.logoIcon}
               whileHover={{ rotate: 12, scale: 1.1 }}
@@ -43,12 +80,17 @@ export default function Header() {
           </Link>
 
           <nav className={styles.nav}>
-            <Link href="/" className={isActive("/") ? styles.active : ""}>
+            <Link
+              href="/"
+              onClick={handleHomeClick}
+              className={isActive("/") ? styles.active : ""}
+            >
               Início
             </Link>
 
             <Link
               href="/modelos"
+              onClick={closeMenu}
               className={isActive("/modelos") ? styles.active : ""}
             >
               Modelos
@@ -56,6 +98,7 @@ export default function Header() {
 
             <Link
               href="/planos"
+              onClick={closeMenu}
               className={isActive("/planos") ? styles.active : ""}
             >
               Planos
@@ -63,7 +106,8 @@ export default function Header() {
 
             <Link
               href="/#como-funciona"
-              className={pathname === "/" ? styles.activeSection : ""}
+              onClick={handleComoFuncionaClick}
+              className={isComoFuncionaActive() ? styles.active : ""}
             >
               Como Funciona
             </Link>
@@ -92,6 +136,7 @@ export default function Header() {
             onClick={() => setMenuOpen((prev) => !prev)}
             aria-label="Abrir menu"
             aria-expanded={menuOpen}
+            type="button"
           >
             <span />
             <span />
@@ -102,26 +147,25 @@ export default function Header() {
 
       <AnimatePresence>
         {menuOpen && (
-          <>
-            <motion.div
-              className={styles.overlay}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={closeMenu}
-            />
+          <motion.div
+            className={styles.mobileWrapper}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <div className={styles.overlay} onClick={closeMenu} />
 
             <motion.aside
               className={styles.mobileMenu}
-              initial={{ opacity: 0, y: -20, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -20, scale: 0.96 }}
-              transition={{ duration: 0.32, ease: "easeOut" }}
+              initial={{ opacity: 0, y: -18 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -18 }}
+              transition={{ duration: 0.28, ease: "easeOut" }}
             >
               <nav className={styles.mobileNav}>
                 <Link
                   href="/"
-                  onClick={closeMenu}
+                  onClick={handleHomeClick}
                   className={isActive("/") ? styles.mobileActive : ""}
                 >
                   Início
@@ -143,23 +187,37 @@ export default function Header() {
                   Planos
                 </Link>
 
-                <Link href="/#como-funciona" onClick={closeMenu}>
+                <Link
+                  href="/#como-funciona"
+                  onClick={handleComoFuncionaClick}
+                  className={
+                    isComoFuncionaActive() ? styles.mobileActive : ""
+                  }
+                >
                   Como Funciona
                 </Link>
               </nav>
 
               <div className={styles.mobileActions}>
-                <Link href="/login" onClick={closeMenu} className={styles.mobileLogin}>
+                <Link
+                  href="/login"
+                  onClick={closeMenu}
+                  className={styles.mobileLogin}
+                >
                   Entrar
                 </Link>
 
-                <Link href="/registrar" onClick={closeMenu} className={styles.mobileCta}>
+                <Link
+                  href="/registrar"
+                  onClick={closeMenu}
+                  className={styles.mobileCta}
+                >
                   Começar agora
                   <ArrowRight size={18} />
                 </Link>
               </div>
             </motion.aside>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import Header2 from "../_components/Header2/Header2";
 import styles from "./modelos.module.css";
+import Footer from "../_components/Footer/Footer";
 
 const categories = [
   { name: "Todos", count: 27, icon: <Grid2X2 size={15} /> },
@@ -244,6 +245,7 @@ export default function ModelosPage() {
           </div>
         </section>
       </main>
+      <Footer />
     </>
   );
 }
