@@ -1,0 +1,185 @@
+.main {
+  background: transparent;
+}
+
+/* HERO */
+.hero {
+  display: flex;
+  justify-content: space-between;
+  padding: 120px 80px;
+  gap: 60px;
+}
+
+.heroContent {
+  max-width: 600px;
+}
+
+.badge {
+  background: #ede9fe;
+  color: #6d5dfc;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+}
+
+.hero h1 {
+  font-size: 52px;
+  margin-top: 20px;
+}
+
+.hero h1 span {
+  color: #7c3aed;
+}
+
+.hero p {
+  margin-top: 20px;
+  color: #64748b;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.primaryBtn {
+  background: linear-gradient(135deg, #6d5dfc, #a855f7);
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.secondaryBtn {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  padding: 14px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.stats div {
+  display: flex;
+  flex-direction: column;
+}
+
+.preview {
+  flex: 1;
+}
+
+.fakeEditor {
+  height: 320px;
+  background: #111827;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+}
+
+/* PASSOS */
+.steps {
+  padding: 100px 80px;
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.card {
+  background: #fff;
+  padding: 40px;
+  border-radius: 20px;
+  flex: 1;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.icon {
+  color: #7c3aed;
+  margin-bottom: 20px;
+}
+
+/* FEATURES */
+.features {
+  padding: 100px 80px;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 40px;
+}
+
+.feature {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+}
+
+/* TEMPLATES */
+.templates {
+  padding: 100px 80px;
+  text-align: center;
+}
+
+.templatesGrid {
+  display: flex;
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.templateCard {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 16px;
+}
+
+.templateImage {
+  height: 160px;
+  background: linear-gradient(135deg, #6d5dfc, #a855f7);
+  border-radius: 12px;
+}
+
+/* CTA */
+.cta {
+  padding: 120px 80px;
+}
+
+.ctaBox {
+  background: linear-gradient(135deg, #6d5dfc, #a855f7);
+  color: #fff;
+  padding: 80px;
+  border-radius: 30px;
+  text-align: center;
+}
+
+/* RESPONSIVO */
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    padding: 80px 20px;
+  }
+
+  .cards,
+  .templatesGrid {
+    flex-direction: column;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

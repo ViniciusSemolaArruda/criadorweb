@@ -1,0 +1,74 @@
+.faq {
+  width: 100%;
+  padding: 105px 24px 90px;
+  background: #ffffff;
+}
+
+.header {
+  text-align: center;
+}
+
+.badge {
+  display: inline-flex;
+  height: 36px;
+  align-items: center;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: #eef2ff;
+  border: 1px solid #d8ddff;
+  color: #6d5dfc;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.header h2 {
+  margin: 24px 0 0;
+  color: #071122;
+  font-size: 40px;
+  font-weight: 900;
+  letter-spacing: -1px;
+}
+
+.header h2 span {
+  color: #815cf6;
+}
+
+.grid {
+  width: min(860px, 100%);
+  margin: 54px auto 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.card {
+  min-height: 142px;
+  padding: 28px;
+  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+}
+
+.card h3 {
+  margin: 0 0 14px;
+  color: #071122;
+  font-size: 17px;
+  font-weight: 900;
+}
+
+.card p {
+  margin: 0;
+  color: #667085;
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header h2 {
+    font-size: 32px;
+  }
+}
